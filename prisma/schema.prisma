@@ -15,6 +15,7 @@ model User {
   joinDate DateTime @default(now())
   lastLogin DateTime?
   password String
+  isVerified Boolean @default(false)
   limitLinks Int @default(30)
   links Links[]
   tokens RefreshToken[]

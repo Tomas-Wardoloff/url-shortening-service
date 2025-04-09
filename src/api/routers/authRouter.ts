@@ -20,6 +20,7 @@ class AuthRouter {
       authMiddleware,
       this.authController.refresh
     );
+    this.router.get("/verify-email", this.authController.verifyEmail);
   }
 
   public getRouter() {

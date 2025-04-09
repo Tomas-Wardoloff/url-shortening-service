@@ -32,7 +32,7 @@ class TagController {
     } catch (error: any) {
       if (error.message === "Tag already exists")
         response.status(409).json({ error: error.message });
-      response.status(500).json({ error: error.message });
+      else response.status(500).json({ error: error.message });
       return;
     }
   };
@@ -72,7 +72,7 @@ class TagController {
     } catch (error: any) {
       if (error.message === "Tag not found")
         response.status(404).json({ error: error.message });
-      response.status(500).json({ error: error.message });
+      else response.status(500).json({ error: error.message });
       return;
     }
   };
