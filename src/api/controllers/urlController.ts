@@ -55,7 +55,7 @@ class UrlController {
         response.status(400).json({ error: error.message });
       else if (error.message === "Short code already exists")
         response.status(400).json({ error: error.message });
-      response.status(500).json({ error: error.message });
+      else response.status(500).json({ error: error.message });
       return;
     }
   };
@@ -108,7 +108,7 @@ class UrlController {
         response.status(400).json({ error: error.message });
       else if (error.message === "Action not authorized")
         response.status(403).json({ error: error.message });
-      response.status(500).json({ error: error.message });
+      else response.status(500).json({ error: error.message });
       return;
     }
   };
@@ -129,7 +129,7 @@ class UrlController {
         response.status(404).json({ error: error.message });
       if (error.message === "Action not authorized")
         response.status(403).json({ error: error.message });
-      response.status(500).json({ error: error.message });
+      else response.status(500).json({ error: error.message });
       return;
     }
   };
@@ -175,7 +175,7 @@ class UrlController {
         response.status(404).json({ error: error.message });
       if (error.message === "Action not authorized")
         response.status(403).json({ error: error.message });
-      response.status(500).json({ error: error.message });
+      else response.status(500).json({ error: error.message });
       return;
     }
   };

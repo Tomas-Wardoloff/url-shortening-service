@@ -1,25 +1,35 @@
 import jwt from "jsonwebtoken";
 
-function generateToken(payload: { id: number }, type: "access" | "refresh") {
-  const secret = process.env[`JWT_${type.toUpperCase()}_SECRET`];
+interface TokenPayload {
+  id: number;
+  iat: number;
+  exp: number;
+}
+
+function generateToken(
+  payload: { id: number },
+  type: "access" | "refresh" | "verification"
+) {
+  const secret = process.env.JWT_SECRET;
   const expiration = process.env[`JWT_${type.toUpperCase()}_EXPIRATION`];
 
   if (!secret) {
-    throw new Error(`${type} secret is not defined`);
+    throw new Error("JWT secret is not defined");
   } else if (!expiration) {
     throw new Error(`${type} expiration is not defined`);
   }
   return jwt.sign(payload, secret, { expiresIn: parseInt(expiration, 10) });
 }
 
-function verifyToken(token: string) {
-  if (!process.env.JWT_ACCESS_SECRET) {
-    throw new Error("Access secret is not defined");
+function verifyToken(token: string): TokenPayload {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    throw new Error("JWT secret is not defined");
   }
   try {
-    return jwt.verify(token, process.env.JWT_ACCESS_SECRET);
-  } catch (error) {
-    throw new Error("Invalid token");
+    return jwt.verify(token, secret) as TokenPayload;
+  } catch (error: any) {
+    throw new Error(error.message);
   }
 }
 
